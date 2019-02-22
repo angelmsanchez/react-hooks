@@ -1,14 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import { StoreContext } from 'redux-react-hook';
 
 import './index.css';
 import App from './components/App';
+import store from './store/store';
 
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+  <StoreContext.Provider value={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </StoreContext.Provider>
   , document.getElementById('root'));
 
     // CONFIG SERVICE WORKER

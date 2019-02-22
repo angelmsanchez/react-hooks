@@ -1,28 +1,22 @@
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
+
+import { useDispatch, useMappedState } from 'redux-react-hook';
+
+import { INCREMENT, DECREMENT } from '../store/actions/counter.action';
 
 export default function Counter() {
-  const [count, setCount] = useState(0);
-  const add = () => {
-    setCount(count + 1);
-  };
-  const minus = () => {
-    setCount(count - 1);
+  const counter = useMappedState(useCallback(state => state.counter, []));
+  const dispatch = useDispatch();
+
+  const decrement = () => {
+    dispatch({ type: DECREMENT });
   };
 
   return (
-    <div className="header">
-      <button
-        id="increment-button"
-        className="btn-success"
-        onClick={add}
-        // onClick={this.props.incrementCounter}
-      >
-        Increment
-      </button>
-      {/* <button onClick={this.props.decrementCounter}> */}
-      <button onClick={minus}>Decrement</button>
-      {/* <p>Counter: {this.props.counter}</p> */}
-      <p>Counter: {count}</p>
+    <div>
+      <button onClick={() => { dispatch({ type: INCREMENT }) }}>+</button>
+      <p>Counter: {counter}</p>
+      <button onClick={decrement}>-</button>
     </div>
   );
 }
